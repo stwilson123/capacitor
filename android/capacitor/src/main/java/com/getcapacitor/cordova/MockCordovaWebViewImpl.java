@@ -4,9 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.view.View;
-import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
-import android.webkit.WebView;
+
+import com.tencent.smtt.sdk.ValueCallback;
+import com.tencent.smtt.sdk.WebView;
 
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPreferences;
@@ -227,6 +228,7 @@ public class MockCordovaWebViewImpl implements CordovaWebView {
   public void showCustomView(View view, WebChromeClient.CustomViewCallback callback) {
 
   }
+
 
   @Override
   public void hideCustomView() {

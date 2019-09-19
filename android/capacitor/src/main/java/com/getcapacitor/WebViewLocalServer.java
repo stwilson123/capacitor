@@ -18,8 +18,11 @@ package com.getcapacitor;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebResourceResponse;
+//import android.webkit.WebResourceRequest;
+//import android.webkit.WebResourceResponse;
+
+import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
+import com.tencent.smtt.export.external.interfaces.WebResourceResponse;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -12,12 +12,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
-import android.webkit.ValueCallback;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebResourceResponse;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+
+import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
+import com.tencent.smtt.export.external.interfaces.WebResourceResponse;
+import com.tencent.smtt.sdk.ValueCallback;
+//import android.webkit.WebResourceRequest;
+//import android.webkit.WebResourceResponse;
+import com.tencent.smtt.sdk.WebSettings;
+import com.tencent.smtt.sdk.WebView;
+import com.tencent.smtt.sdk.WebViewClient;
 import android.content.SharedPreferences;
 
 import com.getcapacitor.android.BuildConfig;
@@ -26,6 +29,7 @@ import com.getcapacitor.plugin.App;
 import com.getcapacitor.plugin.Browser;
 import com.getcapacitor.plugin.Camera;
 import com.getcapacitor.plugin.Clipboard;
+import com.getcapacitor.plugin.Console;
 import com.getcapacitor.plugin.Device;
 import com.getcapacitor.plugin.Filesystem;
 import com.getcapacitor.plugin.Geolocation;
@@ -146,6 +150,8 @@ public class Bridge {
     this.initialPlugins = initialPlugins;
     this.cordovaInterface = cordovaInterface;
     this.preferences = preferences;
+
+
 
     // Start our plugin execution threads and handlers
     handlerThread.start();
@@ -377,7 +383,8 @@ public class Bridge {
     settings.setMediaPlaybackRequiresUserGesture(false);
     settings.setJavaScriptCanOpenWindowsAutomatically(true);
     if (Config.getBoolean("android.allowMixedContent", false)) {
-      settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+    //  settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+      settings.setMixedContentMode(0);
     }
     String backgroundColor = Config.getString("android.backgroundColor" , Config.getString("backgroundColor", null));
     try {
@@ -405,6 +412,7 @@ public class Bridge {
     this.registerPlugin(Browser.class);
     this.registerPlugin(Camera.class);
     this.registerPlugin(Clipboard.class);
+    this.registerPlugin(Console.class);
     this.registerPlugin(Device.class);
     this.registerPlugin(LocalNotifications.class);
     this.registerPlugin(Filesystem.class);

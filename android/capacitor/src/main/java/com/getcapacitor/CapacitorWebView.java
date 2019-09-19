@@ -7,7 +7,7 @@ import android.view.KeyEvent;
 import android.view.inputmethod.BaseInputConnection;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
-import android.webkit.WebView;
+import com.tencent.smtt.sdk.WebView;
 
 import java.util.Date;
 
@@ -20,6 +20,8 @@ public class CapacitorWebView extends WebView {
 
   @Override
   public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
+
+
     boolean captureInput = Config.getBoolean("android.captureInput", false);
     if (captureInput) {
       if (capInputConnection == null) {

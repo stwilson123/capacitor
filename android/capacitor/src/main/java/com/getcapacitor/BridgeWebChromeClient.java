@@ -8,14 +8,20 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.webkit.ConsoleMessage;
-import android.webkit.GeolocationPermissions;
-import android.webkit.JsPromptResult;
-import android.webkit.JsResult;
+
+
+import com.tencent.smtt.export.external.extension.interfaces.IX5WebViewClientExtension;
+import com.tencent.smtt.export.external.interfaces.ConsoleMessage;
+import com.tencent.smtt.export.external.interfaces.GeolocationPermissionsCallback;
+import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient;
+import com.tencent.smtt.export.external.interfaces.JsPromptResult;
+import com.tencent.smtt.export.external.interfaces.JsResult;
+import com.tencent.smtt.sdk.GeolocationPermissions;
+
 import android.webkit.PermissionRequest;
-import android.webkit.ValueCallback;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
+import com.tencent.smtt.sdk.ValueCallback;
+import com.tencent.smtt.sdk.WebChromeClient;
+import com.tencent.smtt.sdk.WebView;
 import android.view.View;
 
 import com.getcapacitor.plugin.camera.CameraUtils;
@@ -44,7 +50,7 @@ public class BridgeWebChromeClient extends WebChromeClient {
   }
   
   @Override
-  public void onShowCustomView(View view, CustomViewCallback callback) {
+  public void onShowCustomView(View view, IX5WebChromeClient.CustomViewCallback callback) {
     callback.onCustomViewHidden();
     super.onShowCustomView(view, callback);
   }
@@ -54,7 +60,7 @@ public class BridgeWebChromeClient extends WebChromeClient {
     super.onHideCustomView();
   }
 
-  @Override
+  //@Override
   public void onPermissionRequest(final PermissionRequest request) {
     boolean isRequestPermissionRequired = android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M;
 
@@ -62,6 +68,7 @@ public class BridgeWebChromeClient extends WebChromeClient {
     if (Arrays.asList(request.getResources()).contains("android.webkit.resource.VIDEO_CAPTURE")) {
       permissionList.add(Manifest.permission.CAMERA);
     }
+
     if (Arrays.asList(request.getResources()).contains("android.webkit.resource.AUDIO_CAPTURE")) {
       permissionList.add(Manifest.permission.MODIFY_AUDIO_SETTINGS);
       permissionList.add(Manifest.permission.RECORD_AUDIO);
@@ -178,10 +185,9 @@ public class BridgeWebChromeClient extends WebChromeClient {
    * @param callback
    */
   @Override
-  public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
+  public void onGeolocationPermissionsShowPrompt(String origin, /*GeolocationPermissions.Callback*/ GeolocationPermissionsCallback callback) {
     super.onGeolocationPermissionsShowPrompt(origin, callback);
     Log.d(LogUtils.getCoreTag(), "onGeolocationPermissionsShowPrompt: DOING IT HERE FOR ORIGIN: " + origin);
-
     // Set that we want geolocation perms for this origin
     callback.invoke(origin, true, false);
 
